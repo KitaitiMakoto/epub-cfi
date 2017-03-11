@@ -32,4 +32,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rubygems-tasks'
   gem.add_development_dependency 'yard'
+  gem.add_development_dependency "test-unit"
+  gem.add_development_dependency "test-unit-notify"
 end
