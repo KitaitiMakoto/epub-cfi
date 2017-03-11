@@ -34,4 +34,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'yard'
   gem.add_development_dependency "test-unit"
   gem.add_development_dependency "test-unit-notify"
+  gem.add_development_dependency "pretty_backtrace"
 end
