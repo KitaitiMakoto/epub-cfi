@@ -15,8 +15,8 @@
 # along with epub-cfi.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Epub
-  module Cfi
+module EPUB
+  module CFI
     # epub-cfi version
     VERSION = "0.1.0"
   end

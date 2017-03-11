@@ -6,7 +6,7 @@ require 'epub/cfi/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "epub-cfi"
-  gem.version       = Epub::Cfi::VERSION
+  gem.version       = EPUB::CFI::VERSION
   gem.summary       = %q{EPUB CFI parser and builder}
   gem.description   = %q{Parser and builder implementation for EPUB CFI defined at http://www.idpf.org/epub/linking/cfi/}
   gem.license       = "LGPL"
