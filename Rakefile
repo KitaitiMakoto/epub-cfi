@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'rake'
 
+task :default => :test
 
 require 'rubygems/tasks'
 Gem::Tasks.new
