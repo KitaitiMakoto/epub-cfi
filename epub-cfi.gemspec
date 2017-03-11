@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.license       = "LGPL"
   gem.authors       = ["KITAITI Makoto"]
   gem.email         = "KitaitiMakoto@gmail.com"
-  gem.homepage      = "http://www.idpf.org/epub/linking/cfi/"
+  gem.homepage      = "https://gitlab.com/KitaitiMakoto/epub-cfi"
 
   gem.files         = `git ls-files`.split($/)
 

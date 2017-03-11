@@ -1,6 +1,6 @@
 # epub-cfi
 
-* [Homepage](http://www.idpf.org/epub/linking/cfi/)
+* [Homepage](https://gitlab.com/KitaitiMakoto/epub-cfi)
 * [Documentation](http://rubydoc.info/gems/epub-cfi/frames)
 * [Email](mailto:KitaitiMakoto at gmail.com)
 
