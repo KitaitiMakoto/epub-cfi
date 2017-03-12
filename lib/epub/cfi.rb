@@ -59,12 +59,16 @@ module EPUB
         0
       end
 
-      def to_s
+      def path_string
         paths.join('!')
       end
 
-      def to_fragment
-       "epubcfi(#{self})"
+      def to_s
+       "epubcfi(#{path_string})"
+      end
+
+      def inspect
+        "#{self.class}:#{path_string}"
       end
 
       def join(*other_paths)
@@ -90,10 +94,6 @@ module EPUB
 
       def to_s
         @string_cache ||= (steps.join + offset.to_s)
-      end
-
-      def to_fragment
-        @fragment_cache ||= "epubcfi(#{self})"
       end
 
       def <=>(other)
@@ -177,11 +177,7 @@ module EPUB
       end
 
       def to_s
-        @string_cache ||= (first.to_fragment + (exclude_end? ? '...' : '..') + last.to_fragment)
-      end
-
-      def to_fragment
-        @fragment_cache ||= "epubcfi(#{@parent},#{@start},#{@end})"
+        @string_cache ||= "epubcfi(#{@parent.path_string},#{@start},#{@end})"
       end
     end
 

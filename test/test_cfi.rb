@@ -13,30 +13,6 @@ class TestCFI < Test::Unit::TestCase
 
   class TestPath < self
     data([
-      '/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]',
-      '/6/4!/4/10/2/1:3[Ф-"spa ce"-99%-aa^[bb^]^^]',
-      '/6/4!/4/10/2/1:3[Ф-"spa%20ce"-99%25-aa^[bb^]^^]',
-      '/6/4!/4/10/2/1:3[%d0%a4-"spa%20ce"-99%25-aa^[bb^]^^]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[,y]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[;s=b]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy;s=b]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2[;s=b]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/3:10',
-      '/6/4[chap01ref]!/4[body01]/16[svgimg]',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/1:0',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:0',
-      '/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3',
-    ].reduce({}) {|data, cfi|
-      data[cfi] = cfi
-      data
-    })
-    def test_to_s(cfi)
-      assert_equal cfi, epubcfi(cfi).to_s
-    end
-
-    data([
       'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])',
       'epubcfi(/6/4!/4/10/2/1:3[Ф-"spa ce"-99%-aa^[bb^]^^])',
       'epubcfi(/6/4!/4/10/2/1:3[Ф-"spa%20ce"-99%25-aa^[bb^]^^])',
@@ -56,8 +32,8 @@ class TestCFI < Test::Unit::TestCase
       data[cfi] = cfi
       data
     })
-    def test_to_fragment(cfi)
-      assert_equal cfi, EPUB::CFI::Parser.parse(cfi).to_fragment
+    def test_to_s(cfi)
+      assert_equal cfi, EPUB::CFI::Parser.parse(cfi).to_s
     end
 
     def test_compare
@@ -87,13 +63,8 @@ class TestCFI < Test::Unit::TestCase
     end
 
     def test_to_s
-      assert_equal 'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1)..epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:4)', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').to_s
-      assert_equal 'epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]!/2/1:1)..epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]!/3:4)', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],!/2/1:1,!/3:4').to_s
-    end
-
-    def test_to_fragment
       cfi = '/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4'
-      assert_equal 'epubcfi(' + cfi + ')', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').to_fragment
+      assert_equal 'epubcfi(' + cfi + ')', epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4').to_s
     end
 
     def test_cover
