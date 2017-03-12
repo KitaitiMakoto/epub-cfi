@@ -10,6 +10,10 @@ Description
 
 Parser and builder implementation for EPUB CFI defined at http://www.idpf.org/epub/linking/cfi/
 
+Extracted from [EPUB Parser][].
+
+[EPUB Parser]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
+
 Features
 --------
 
