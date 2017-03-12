@@ -26,6 +26,15 @@ Install
 
     $ gem install epub-cfi
 
+See also
+--------
+
+* [EPUB Canonical Fragment Identifiers 1.1][spec]
+* [EPUB Parser][]
+
+[spec]: http://www.idpf.org/epub/linking/cfi/
+[EPUB Parser]: http://www.rubydoc.info/gems/epub-parser/file/docs/Home.markdown
+
 Copyright
 ---------
 
