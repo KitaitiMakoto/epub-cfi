@@ -17,6 +17,10 @@ Extracted from [EPUB Parser][].
 Features
 --------
 
+* Parses EPUB CFI string.
+* Builds EPUB CFI(implemented but currently useless).
+* Converts EPUB CFI object to a string.
+
 Examples
 --------
 
