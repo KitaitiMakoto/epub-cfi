@@ -28,10 +28,6 @@ module EPUB
         @paths = original.paths.collect(&:dup)
       end
 
-      def type
-        @paths.last.type
-      end
-
       def <=>(other)
         index = 0
         other_paths = other.paths
