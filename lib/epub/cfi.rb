@@ -68,7 +68,7 @@ module EPUB
       end
 
       def inspect
-        "#{self.class}:#{path_string}"
+        "#<#{self.class}:#{path_string}>"
       end
 
       def join(*other_paths)
