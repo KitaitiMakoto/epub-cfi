@@ -12,7 +12,7 @@ CLEAN.include "lib/epub/cfi/parser.tab.rb"
 
 require 'rubygems/tasks'
 Gem::Tasks.new
-task :build => "lib/epub/cfi/parser.tab.rb"
+task :build => [:clean, "lib/epub/cfi/parser.tab.rb"]
 
 require 'rake/testtask'
 Rake::TestTask.new do |test|
