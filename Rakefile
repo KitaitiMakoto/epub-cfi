@@ -3,6 +3,11 @@ require 'rake'
 
 task :default => :test
 
+file "lib/epub/cfi/parser.tab.rb" do |target|
+  sh "racc #{target.name.sub("tab.rb", "y")}"
+end
+
+
 require 'rubygems/tasks'
 Gem::Tasks.new
 
