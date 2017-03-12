@@ -1,26 +1,33 @@
-# epub-cfi
+epub-cfi
+========
 
 * [Homepage](https://gitlab.com/KitaitiMakoto/epub-cfi)
 * [Documentation](http://rubydoc.info/gems/epub-cfi/frames)
 * [Email](mailto:KitaitiMakoto at gmail.com)
 
-## Description
+Description
+-----------
 
 Parser and builder implementation for EPUB CFI defined at http://www.idpf.org/epub/linking/cfi/
 
-## Features
+Features
+--------
 
-## Examples
+Examples
+--------
 
     require 'epub/cfi'
 
-## Requirements
+Requirements
+------------
 
-## Install
+Install
+-------
 
     $ gem install epub-cfi
 
-## Copyright
+Copyright
+---------
 
 Copyright (c) 2017 KITAITI Makoto
 
