@@ -57,7 +57,7 @@ class TestCFI < Test::Unit::TestCase
       data
     })
     def test_to_fragment(cfi)
-      assert_equal cfi, EPUB::Parser::CFI.parse(cfi).to_fragment
+      assert_equal cfi, EPUB::CFI::Parser.parse(cfi).to_fragment
     end
 
     def test_compare
@@ -208,7 +208,7 @@ class TestCFI < Test::Unit::TestCase
   private
 
   def epubcfi(string)
-    EPUB::Parser::CFI.new.parse(string)
+    EPUB::CFI::Parser.new.parse(string)
   end
 
   def assert_equal_node(expected, actual, message='')
