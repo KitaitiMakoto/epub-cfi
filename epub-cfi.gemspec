@@ -14,7 +14,7 @@ Gem::Specification.new do |gem|
   gem.email         = "KitaitiMakoto@gmail.com"
   gem.homepage      = "https://gitlab.com/KitaitiMakoto/epub-cfi"
 
-  gem.files         = `git ls-files`.split($/)
+  gem.files         = `git ls-files`.split($/) << "lib/epub/cfi/parser.tab.rb"
 
   `git submodule --quiet foreach --recursive pwd`.split($/).each do |submodule|
     submodule.sub!("#{Dir.pwd}/",'')
