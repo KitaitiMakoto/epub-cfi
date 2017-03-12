@@ -7,9 +7,9 @@ file "lib/epub/cfi/parser.tab.rb" do |target|
   sh "racc #{target.name.sub("tab.rb", "y")}"
 end
 
-
 require 'rubygems/tasks'
 Gem::Tasks.new
+task :build => "lib/epub/cfi/parser.tab.rb"
 
 require 'rake/testtask'
 Rake::TestTask.new do |test|
