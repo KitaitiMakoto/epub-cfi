@@ -17,9 +17,43 @@ Examples
 --------
 
     require 'epub/cfi'
-
-Requirements
-------------
+    
+    location = EPUB::CFI.parse("epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])")
+    # Or location = EPUB::CFI("epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])")
+    # => #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
+    location.to_s # => "epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])"
+    
+    location1 = EPUB::CFI("/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]")
+    location2 = EPUB::CFI("/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]")
+    location1 < location2 # => true
+    location1 <=> location1 # => -1
+    # location2 appears earlier than location1
+    
+    range = EPUB::CFI("/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4")
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1>..#<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/3:4>
+    range.kind_of? ::Range # => true
+    range.begin
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1>
+    range.end
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/3:4>
+    range.start_subpath
+    # => "/2/1:1"
+    range.end_subpath
+    # => "/3:4"
+    range.parent_path
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]>
+    range.to_s # => "epubcfi(/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4)"
+    
+    builtin_range = location2..location1
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]>..#<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]>
+    builtin_range.to_s
+    # => "epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy])..epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y])"
+    builtin_range.kind_of? ::Range # => true
+    builtin_range.kind_of? EPUB::CFI::Range # => false
+    cfi_range = EPUB::CFI::Range.new(location2, location1)
+    # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]>..#<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/1:3[xx,y]>
+    cfi_range.kind_of? ::Range # => true
+    cfi_range.kind_of? EPUB::CFI::Range # => true
 
 Install
 -------
