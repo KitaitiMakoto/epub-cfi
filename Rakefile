@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'rake'
 
-task :default => :test
+task :default => "lib/epub/cfi/parser.tab.rb"
 
 file "lib/epub/cfi/parser.tab.rb" do |target|
   sh "racc #{target.name.sub("tab.rb", "y")}"
