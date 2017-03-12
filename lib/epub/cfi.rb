@@ -131,7 +131,7 @@ module EPUB
     end
 
     class Range < ::Range
-      attr_accessor :parent, :start, :end
+      attr_accessor :parent_path, :start_subpath, :end_subpath
 
       # @todo consider the case subpaths are redirected path
       # @todo FIXME: too dirty
@@ -164,16 +164,16 @@ module EPUB
 
           new_range = new(first, last)
 
-          new_range.parent = Location.new(parent_path)
-          new_range.start = start_str
-          new_range.end = end_str
+          new_range.parent_path = Location.new(parent_path)
+          new_range.start_subpath = start_str
+          new_range.end_subpath = end_str
 
           new_range
         end
       end
 
       def to_s
-        @string_cache ||= "epubcfi(#{@parent.path_string},#{@start},#{@end})"
+        @string_cache ||= "epubcfi(#{@parent_path.path_string},#{@start_subpath},#{@end_subpath})"
       end
     end
 

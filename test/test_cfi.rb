@@ -59,7 +59,7 @@ class TestCFI < Test::Unit::TestCase
       assert_equal 0, first <=> range.first
       assert_equal 0, last <=> range.last
 
-      assert_equal 0, parent <=> range.parent
+      assert_equal 0, parent <=> range.parent_path
     end
 
     def test_to_s
