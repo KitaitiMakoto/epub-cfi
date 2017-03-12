@@ -1,6 +1,6 @@
 # coding: utf-8
 require_relative 'helper'
-require 'epub/parser/cfi'
+require 'epub/cfi'
 
 class TestParserCFI < Test::Unit::TestCase
   def setup

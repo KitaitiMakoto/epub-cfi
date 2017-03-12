@@ -313,3 +313,5 @@ module EPUB
     end
   end
 end
+
+require "epub/cfi/parser"
