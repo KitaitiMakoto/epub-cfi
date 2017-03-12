@@ -1,4 +1,4 @@
-epub-cfi
+EPUB CFI
 ========
 
 * [Homepage](https://gitlab.com/KitaitiMakoto/epub-cfi)
