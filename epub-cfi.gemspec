@@ -29,8 +29,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
-  gem.add_runtime_dependency "racc"
-
+  gem.add_development_dependency "racc"
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rubygems-tasks'
   gem.add_development_dependency 'yard'
