@@ -35,7 +35,7 @@ Examples
     location2 = EPUB::CFI("/6/4[chap01ref]!/4[body01]/10[para05]/2/1:3[yyy]")
     location1 < location2 # => true
     location1 <=> location2 # => -1
-    # location2 appears earlier than location1
+    # location1 appears earlier than location2
     
     range = EPUB::CFI("/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4")
     # => #<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1>..#<EPUB::CFI::Location:/6/4[chap01ref]!/4[body01]/10[para05]/3:4>
