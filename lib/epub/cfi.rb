@@ -33,7 +33,6 @@ module EPUB
 
           subpath = subpath.collect(&:dup)
           offset = subpath.last.offset
-          offset = offset.dup if offset
           last_of_paths = paths.pop
           paths << last_of_paths
           last_of_paths.steps.concat subpath.shift.steps
