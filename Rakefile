@@ -8,7 +8,7 @@ file "lib/epub/cfi/parser.tab.rb" do |target|
 end
 
 require "rake/clean"
-CLEAN.include "lib/epub/cfi/parser.tab.rb"
+CLOBBER.include "lib/epub/cfi/parser.tab.rb"
 
 require 'rubygems/tasks'
 Gem::Tasks.new
