@@ -20,6 +20,30 @@ module EPUB
 
       attr_reader :paths
 
+      class << self
+        def from_parent_and_subpath(parent_path, subpath)
+          new(resolve_path(parent_path, subpath))
+        end
+
+        private
+
+        def resolve_path(parent_path, subpath)
+          paths = parent_path.collect(&:dup)
+          return paths unless subpath
+
+          subpath = subpath.collect(&:dup)
+          offset = subpath.last.offset
+          offset = offset.dup if offset
+          last_of_paths = paths.pop
+          paths << last_of_paths
+          last_of_paths.steps.concat subpath.shift.steps
+          paths.concat subpath
+          paths.last.instance_variable_set :@offset, offset
+
+          paths
+        end
+      end
+
       def initialize(paths=[])
         @paths = paths
       end
@@ -134,33 +158,13 @@ module EPUB
       attr_accessor :parent_path, :start_subpath, :end_subpath
 
       # @todo consider the case subpaths are redirected path
-      # @todo FIXME: too dirty
       class << self
         def from_parent_and_start_and_end(parent_path, start_subpath, end_subpath)
           start_str = start_subpath.join
           end_str = end_subpath.join
 
-          first_paths = parent_path.collect(&:dup)
-          if start_subpath
-            offset_of_first = start_subpath.last.offset
-            offset_of_first = offset_of_first.dup if offset_of_first
-            last_of_first_paths = first_paths.pop
-            first_paths << last_of_first_paths
-            last_of_first_paths.steps.concat start_subpath.shift.steps
-            first_paths.concat start_subpath
-            first_paths.last.instance_variable_set :@offset, offset_of_first
-          end
-          offset_of_last = end_subpath.last.offset
-          offset_of_last = offset_of_last.dup if offset_of_last
-          last_paths = parent_path.collect(&:dup)
-          last_of_last_paths = last_paths.pop
-          last_paths << last_of_last_paths
-          last_of_last_paths.steps.concat end_subpath.shift.steps
-          last_paths.concat end_subpath
-          last_paths.last.instance_variable_set :@offset, offset_of_last
-
-          first = CFI::Location.new(first_paths)
-          last = CFI::Location.new(last_paths)
+          first = Location.from_parent_and_subpath(parent_path, start_subpath)
+          last = Location.from_parent_and_subpath(parent_path, end_subpath)
 
           new_range = new(first, last)
 
