@@ -3,8 +3,9 @@ require 'rake'
 
 task :default => "lib/epub/cfi/parser.tab.rb"
 
-file "lib/epub/cfi/parser.tab.rb" do |target|
-  sh "racc #{target.name.sub("tab.rb", "y")}"
+desc "Build EPUB CFI parser"
+file "lib/epub/cfi/parser.tab.rb" => "lib/epub/cfi/parser.y" do |task|
+  sh "racc #{task.source}"
 end
 
 require "rake/clean"
