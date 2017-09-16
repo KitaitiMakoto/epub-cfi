@@ -160,17 +160,14 @@ module EPUB
       # @todo consider the case subpaths are redirected path
       class << self
         def from_parent_and_start_and_end(parent_path, start_subpath, end_subpath)
-          start_str = start_subpath.join
-          end_str = end_subpath.join
-
           first = Location.from_parent_and_subpath(parent_path, start_subpath)
           last = Location.from_parent_and_subpath(parent_path, end_subpath)
 
           new_range = new(first, last)
 
           new_range.parent_path = Location.new(parent_path)
-          new_range.start_subpath = start_str
-          new_range.end_subpath = end_str
+          new_range.start_subpath = start_subpath.join
+          new_range.end_subpath = end_subpath.join
 
           new_range
         end
