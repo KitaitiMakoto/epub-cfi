@@ -33,9 +33,7 @@ module EPUB
 
           subpath = subpath.collect(&:dup)
           offset = subpath.last.offset
-          last_of_paths = paths.pop
-          paths << last_of_paths
-          last_of_paths.steps.concat subpath.shift.steps
+          paths.last.steps.concat subpath.shift.steps
           paths.concat subpath
           paths.last.instance_variable_set :@offset, offset
 
