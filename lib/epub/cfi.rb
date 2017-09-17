@@ -155,14 +155,6 @@ module EPUB
           end
         end
       end
-
-      def each_step_with_instruction
-        yield [step, nil]
-        local_path.each_step_with_instruction do |s, instruction|
-          yield [s, instruction]
-        end
-        self
-      end
     end
 
     class Range < ::Range
