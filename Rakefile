@@ -25,4 +25,3 @@ task :test => "lib/epub/cfi/parser.tab.rb"
 
 require 'yard'
 YARD::Rake::YardocTask.new
-task :doc => :yard
