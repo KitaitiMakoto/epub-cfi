@@ -78,11 +78,38 @@ end
 module EPUB::CFI
   module_function
 
+  # Parses the given string, creates a new {CFI} object and return it.
+  #
+  # @example Parses a URI fragment string
+  #   EPUB::CFI.parse("epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])")
+  #   #=> #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
+  #
+  # @example Parses a path string
+  #   EPUB::CFI.parse("/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]")
+  #   #=> #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
+  #
+  # @param string [String]
+  # @return [CFI]
+  # @raise [Racc::ParseError] if given string is invalid
   def parse(string)
     EPUB::CFI::Parser.parse(string)
   end
 end
 
+# Creates a new {CFI} object from the given string and return it.
+#
+# @example Creates from a URI fragment string
+#   EPUB::CFI("epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])")
+#   #=> #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
+#
+# @example Creates from a path string
+#   EPUB::CFI("/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]")
+#   #=> #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
+#
+# @param string [String]
+# @return [CFI]
+# @raise [Racc::ParseError] if given string is invalid
+# @see CFI.parse
 def EPUB::CFI(string)
   EPUB::CFI.parse(string)
 end
