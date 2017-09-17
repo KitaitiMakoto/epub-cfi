@@ -6,10 +6,24 @@ module EPUB
     RE_ESCAPED_SPECIAL_CHARS = Regexp.escape(SPECIAL_CHARS)
 
     class << self
+      # Escapes special characters in string
+      #
+      # @example
+      #   EPUB::CFI.escape("2[1]") #=> "2^[1^]"
+      #
+      # @param string [String] Component string of EPUB CFI
+      # @return [String] Escaped comonent string
       def escape(string)
         string.gsub(/([#{RE_ESCAPED_SPECIAL_CHARS}])/o, '^\1')
       end
 
+      # Unescape escaped characters in string
+      #
+      # @example
+      #   EPUB::CFI.unescape("2^[1^]") #=> "2[1]"
+      #
+      # @param string [String] Escape component string of EPUB CFI
+      # @return [String] Unescaped component string
       def unescape(string)
         string.gsub(/\^([#{RE_ESCAPED_SPECIAL_CHARS}])/o, '\1')
       end
