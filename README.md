@@ -1,6 +1,10 @@
 EPUB CFI
 ========
 
+[![Gem Version](https://badge.fury.io/rb/epub-cfi.svg)](https://badge.fury.io/rb/epub-cfi)
+[![pipeline status](https://gitlab.com/KitaitiMakoto/epub-cfi/badges/master/pipeline.svg)](https://gitlab.com/KitaitiMakoto/epub-cfi/commits/master)
+[![coverage report](https://gitlab.com/KitaitiMakoto/epub-cfi/badges/master/coverage.svg)](https://gitlab.com/KitaitiMakoto/epub-cfi/commits/master)
+
 * [Homepage](https://gitlab.com/KitaitiMakoto/epub-cfi)
 * [Documentation](http://rubydoc.info/gems/epub-cfi/frames)
 * [Email](mailto:KitaitiMakoto at gmail.com)
