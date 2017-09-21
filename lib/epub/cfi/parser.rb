@@ -22,56 +22,52 @@ class EPUB::CFI::Parser
       string = string['epubcfi('.length .. -2]
     end
     @scanner = StringScanner.new(string, true)
-    @q = []
-    until @scanner.eos?
-      case
-      when @scanner.scan(/[1-9]/)
-        @q << [:DIGIT_NON_ZERO, @scanner[0]]
-      when @scanner.scan(/0/)
-        @q << [:ZERO, @scanner[0]]
-      when @scanner.scan(/ /)
-        @q << [:SPACE, @scanner[0]]
-      when @scanner.scan(/\^/)
-        @q << [:CIRCUMFLEX, @scanner[0]]
-      when @scanner.scan(/\[/)
-        @q << [:OPENING_SQUARE_BRACKET, @scanner[0]]
-      when @scanner.scan(/\]/)
-        @q << [:CLOSING_SQUARE_BRACKET, @scanner[0]]
-      when @scanner.scan(/\(/)
-        @q << [:OPENING_PARENTHESIS, @scanner[0]]
-      when @scanner.scan(/\)/)
-        @q << [:CLOSING_PARENTHESIS, @scanner[0]]
-      when @scanner.scan(/,/)
-        @q << [:COMMA, @scanner[0]]
-      when @scanner.scan(/;/)
-        @q << [:SEMICOLON, @scanner[0]]
-      when @scanner.scan(/=/)
-        @q << [:EQUAL, @scanner[0]]
-      when @scanner.scan(/\./)
-        @q << [:DOT, @scanner[0]]
-      when @scanner.scan(/:/)
-        @q << [:COLON, @scanner[0]]
-      when @scanner.scan(/~/)
-        @q << [:TILDE, @scanner[0]]
-      when @scanner.scan(/@/)
-        @q << [:ATMARK, @scanner[0]]
-      when @scanner.scan(/\//)
-        @q << [:SOLIDUS, @scanner[0]]
-      when @scanner.scan(/!/)
-        @q << [:EXCLAMATION_MARK, @scanner[0]]
-      when @scanner.scan(UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN)
-        @q << [:UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK, @scanner[0]]
-      else
-        raise 'unexpected character'
-      end
-    end
-    @q << [false, false]
-
     do_parse
   end
 
   def next_token
-    @q.shift
+    return [false, false] if @scanner.eos?
+
+    case
+    when @scanner.scan(/[1-9]/)
+      [:DIGIT_NON_ZERO, @scanner[0]]
+    when @scanner.scan(/0/)
+      [:ZERO, @scanner[0]]
+    when @scanner.scan(/ /)
+      [:SPACE, @scanner[0]]
+    when @scanner.scan(/\^/)
+      [:CIRCUMFLEX, @scanner[0]]
+    when @scanner.scan(/\[/)
+      [:OPENING_SQUARE_BRACKET, @scanner[0]]
+    when @scanner.scan(/\]/)
+      [:CLOSING_SQUARE_BRACKET, @scanner[0]]
+    when @scanner.scan(/\(/)
+      [:OPENING_PARENTHESIS, @scanner[0]]
+    when @scanner.scan(/\)/)
+      [:CLOSING_PARENTHESIS, @scanner[0]]
+    when @scanner.scan(/,/)
+      [:COMMA, @scanner[0]]
+    when @scanner.scan(/;/)
+      [:SEMICOLON, @scanner[0]]
+    when @scanner.scan(/=/)
+      [:EQUAL, @scanner[0]]
+    when @scanner.scan(/\./)
+      [:DOT, @scanner[0]]
+    when @scanner.scan(/:/)
+      [:COLON, @scanner[0]]
+    when @scanner.scan(/~/)
+      [:TILDE, @scanner[0]]
+    when @scanner.scan(/@/)
+      [:ATMARK, @scanner[0]]
+    when @scanner.scan(/\//)
+      [:SOLIDUS, @scanner[0]]
+    when @scanner.scan(/!/)
+      [:EXCLAMATION_MARK, @scanner[0]]
+    when @scanner.scan(UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN)
+      [:UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK, @scanner[0]]
+    else
+      raise 'unexpected character'
+    end
   end
 end
 
