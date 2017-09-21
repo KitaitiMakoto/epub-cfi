@@ -1,3 +1,7 @@
+### 0.1.2 / unreleased
+
+* Scan CFI string on demand to reduce memory footprint
+
 ### 0.1.1 / 2017-09-17
 
 * Add `CFI::Location.from_parent_and_subpath`
