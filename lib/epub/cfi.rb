@@ -29,6 +29,7 @@ module EPUB
       end
     end
 
+    # {Location} indicates a point in an EPUB Publication.
     class Location
       include Comparable
 

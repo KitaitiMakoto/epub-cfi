@@ -13,7 +13,8 @@ CLOBBER.include "lib/epub/cfi/parser.tab.rb"
 
 require 'rubygems/tasks'
 Gem::Tasks.new
-task :build => [:clean, "lib/epub/cfi/parser.tab.rb"]
+task :build => "lib/epub/cfi/parser.tab.rb"
+task :release => :clobber
 
 require 'rake/testtask'
 Rake::TestTask.new do |test|
