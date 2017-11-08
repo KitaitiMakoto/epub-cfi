@@ -11,6 +11,15 @@ class TestCFI < Test::Unit::TestCase
     assert_equal '^[](),;=', EPUB::CFI.unescape('^^^[^]^(^)^,^;^=')
   end
 
+  class TestLocation < self
+    def test_copy
+      cfi = EPUB::CFI::Parser.parse('epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])')
+      cloned = cfi.clone
+      assert_equal cfi, cloned
+      assert_not_same cfi, cloned
+    end
+  end
+
   class TestPath < self
     data([
       'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])',
