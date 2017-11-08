@@ -18,6 +18,19 @@ class TestCFI < Test::Unit::TestCase
       assert_equal cfi, cloned
       assert_not_same cfi, cloned
     end
+
+    def test_join
+      location = EPUB::CFI::Parser.parse('epubcfi(/6/14[chap05ref])')
+      other_path = EPUB::CFI::Path.new([EPUB::CFI::Path.new([
+        EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')),
+        EPUB::CFI::Step.new(10),
+        EPUB::CFI::Step.new(2),
+        EPUB::CFI::Step.new(1)
+      ])])
+      joined = location.join([other_path])
+
+      assert_equal 'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1)', joined.to_s
+    end
   end
 
   class TestPath < self
