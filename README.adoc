@@ -1,7 +1,5 @@
 = EPUB CFI
 
-= {doctitle}
-
 image:https://badge.fury.io/rb/epub-cfi.svg["Gem Version", link="https://badge.fury.io/rb/epub-cfi"]
 image:https://gitlab.com/KitaitiMakoto/epub-cfi/badges/master/pipeline.svg[link="https://gitlab.com/KitaitiMakoto/epub-cfi/commits/master",title="pipeline status"]
 image:https://gitlab.com/KitaitiMakoto/epub-cfi/badges/master/coverage.svg[link="https://gitlab.com/KitaitiMakoto/epub-cfi/commits/master",title="coverage report"]
