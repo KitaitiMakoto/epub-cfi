@@ -102,10 +102,12 @@ end
 #   EPUB::CFI("/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]")
 #   #=> #<EPUB::CFI::Location:/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]]>
 #
-# @param string [String]
-# @return [CFI]
+# @param string [String, CFI]
+# @return [CFI] CFI parsed from +string+ when +string+ is a String. +string+ itself when it's a CFI
 # @raise [Racc::ParseError] if given string is invalid
 # @see CFI.parse
 def EPUB::CFI(string)
-  EPUB::CFI.parse(string)
+  string.kind_of?(EPUB::CFI::Location) || string.kind_of?(EPUB::CFI::Range) ?
+    string :
+    EPUB::CFI.parse(string)
 end
