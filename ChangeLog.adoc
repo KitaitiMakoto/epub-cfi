@@ -1,6 +1,7 @@
 === 0.1.2 / unreleased
 
 * Scan CFI string on demand to reduce memory footprint
+* Make CFI() funciton accepts CFI instance
 
 === 0.1.1 / 2017-09-17
 
