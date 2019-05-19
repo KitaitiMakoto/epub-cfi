@@ -53,4 +53,15 @@ class TestParserCFI < Test::Unit::TestCase
       EPUB::CFI(cfi)
     end
   end
+
+  def test_cfi_function_accepts_cfi_instance
+    cfi = EPUB::CFI::Parser.parse('epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1:3[2^[1^]])')
+    parsed = nil
+
+    assert_nothing_raised do
+      parsed = EPUB::CFI(cfi)
+    end
+
+    assert_equal cfi, parsed
+  end
 end
