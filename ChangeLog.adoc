@@ -1,4 +1,4 @@
-=== 0.1.2 / unreleased
+=== 0.1.2 / 2019-05-19
 
 * Scan CFI string on demand to reduce memory footprint
 * Make CFI() funciton accepts CFI instance
