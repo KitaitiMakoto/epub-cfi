@@ -15,7 +15,7 @@ rule
 
   path : step local_path
            {
-             path, redirected_path = *val[1]
+             path, _redirected_path = *val[1]
              path.steps.unshift val[0]
              result = val[1]
            }
