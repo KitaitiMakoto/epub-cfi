@@ -6,8 +6,5 @@ end
 require 'test/unit'
 require "test/unit/notify"
 
-require "pretty_backtrace"
-PrettyBacktrace.enable
-
 class Test::Unit::TestCase
 end
