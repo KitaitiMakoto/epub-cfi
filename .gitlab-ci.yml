@@ -1,7 +1,7 @@
 before_script:
   - ruby -v
   - which ruby
-  - gem install --no-document racc rake rubygems-tasks yard test-unit test-unit-notify pretty_backtrace simplecov
+  - gem install --no-document racc rake rubygems-tasks yard test-unit test-unit-notify simplecov
 
 test:2.3:
   image: ruby:2.3
