@@ -25,3 +25,9 @@ task :test => "lib/epub/cfi/parser.tab.rb"
 
 require 'yard'
 YARD::Rake::YardocTask.new
+
+require "steep"
+desc "Check type"
+task typecheck: "lib/epub/cfi/parser.tab.rb" do
+  Steep::Drivers::Check.new(stdout: $stdout, stderr: $stderr).run
+end
