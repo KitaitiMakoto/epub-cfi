@@ -1,0 +1,127 @@
+# TypeProf 0.21.8
+
+# Classes
+module EPUB
+  private
+  def self.CFI: (untyped string) -> untyped
+
+  module CFI
+    VERSION: String
+    SPECIAL_CHARS: String
+    RE_ESCAPED_SPECIAL_CHARS: String
+
+    def self.escape: (String? string) -> String
+    def self.unescape: (String string) -> String
+    def parse: (untyped string) -> untyped
+    def self.parse: (untyped string) -> untyped
+
+    class Location
+      include Comparable
+
+      attr_reader paths: Array[untyped]
+      def self.from_parent_and_subpath: (untyped parent_path, untyped subpath) -> Location
+      def self.resolve_path: (untyped parent_path, untyped subpath) -> untyped
+      def initialize: (?Array[untyped] paths) -> void
+      def initialize_copy: (untyped original) -> untyped
+      def <=>: (untyped other) -> Integer?
+      def path_string: -> String
+      def to_s: -> String
+      def inspect: -> String
+      def join: (*untyped other_paths) -> Location
+    end
+
+    class Path
+      @string_cache: String
+
+      attr_reader steps: Array[Path | Step]
+      attr_reader offset: nil
+      def initialize: (?Array[Path | Step] steps, ?nil offset) -> void
+      def initialize_copy: (untyped original) -> nil
+      def to_s: -> String
+      def <=>: (untyped other) -> Integer?
+    end
+
+    class Range < Range[untyped]
+      @string_cache: String
+
+      attr_accessor parent_path: Location
+      attr_accessor start_subpath: untyped
+      attr_accessor end_subpath: untyped
+      def self.from_parent_and_start_and_end: (untyped parent_path, untyped start_subpath, untyped end_subpath) -> Range
+      def to_s: -> String
+    end
+
+    class Step
+      @string_cache: String?
+
+      attr_reader value: Integer
+      attr_reader assertion: (IDAssertion | String)?
+      alias step value
+      def initialize: (Integer value, ?(IDAssertion | String)? assertion) -> void
+      def initialize_copy: (untyped original) -> nil
+      def to_s: -> String
+      def <=>: (Step other) -> Integer?
+      def element?: -> bool
+      def character_data?: -> bool
+    end
+
+    class IDAssertion
+      @string_cache: String?
+
+      attr_reader id: String
+      attr_reader parameters: Hash[String, [String]]
+      def initialize: (String id, ?Hash[String, [String]] parameters) -> void
+      def to_s: -> String?
+    end
+
+    class TextLocationAssertion
+      @string_cache: String?
+
+      attr_reader preceded: String?
+      attr_reader followed: String?
+      attr_reader parameters: Hash[String, [String]]
+      def initialize: (?String? preceded, ?String? followed, ?Hash[String, [String]] parameters) -> void
+      def to_s: -> String?
+    end
+
+    class CharacterOffset
+      @string_cache: String?
+
+      attr_reader value: Integer
+      attr_reader assertion: TextLocationAssertion?
+      alias offset value
+      def initialize: (Integer value, ?TextLocationAssertion? assertion) -> void
+      def to_s: -> String
+      def <=>: (CharacterOffset other) -> Integer?
+    end
+
+    class TemporalSpatialOffset
+      @string_cache: String?
+
+      attr_reader temporal: (Float | Integer)?
+      attr_reader x: (Float | Integer)?
+      attr_reader y: (Float | Integer)?
+      attr_reader assertion: nil
+      def initialize: (?(Float | Integer)? temporal, ?(Float | Integer)? x, ?(Float | Integer)? y, ?nil assertion) -> void
+      def to_s: -> String?
+      def <=>: (TemporalSpatialOffset other) -> Integer?
+    end
+
+    class Parser < Racc::Parser
+      Racc_arg: [[Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer], [Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer], [Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer], [Integer, Integer, Integer, Integer, Integer, Integer, nil, nil, Integer, nil, Integer, nil, Integer, nil, Integer, nil, Integer, nil, nil, nil, Integer, nil, Integer, Integer, Integer, Integer, nil, Integer, nil, Integer, nil, nil, nil, Integer, nil, nil, Integer, nil, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, Integer, nil, Integer, nil, nil, Integer, Integer, nil, nil, Integer, nil, Integer, Integer, Integer, Integer, Integer, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, Integer, Integer, nil, nil, Integer, nil, Integer, nil, Integer, Integer, nil, Integer, nil], [Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, Integer, Integer, nil, nil, nil, Integer, Integer], [Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, Integer, Integer, nil, nil, nil, Integer, Integer], [nil, nil, nil, nil, nil, Integer, nil, Integer, nil, nil, nil, nil, nil, Integer, nil, nil, Integer, nil, nil, nil, nil, Integer, Integer, nil, nil, nil, Integer, nil, nil, Integer, nil, Integer, nil, nil, Integer, Integer, nil, Integer, Integer], [nil, Integer, Integer, Integer, Integer, Integer, Integer, nil, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, nil, Integer, Integer, Integer, Integer, Integer, Integer, Integer, nil, Integer, Integer, Integer, Integer, Integer, nil, Integer, Integer, nil], Integer, [Integer, Integer, :racc_error, Integer, Integer, :_reduce_1, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_4, Integer, Integer, :_reduce_5, Integer, Integer, :_reduce_6, Integer, Integer, :_reduce_7, Integer, Integer, :_reduce_8, Integer, Integer, :_reduce_9, Integer, Integer, :_reduce_10, Integer, Integer, :_reduce_11, Integer, Integer, :_reduce_12, Integer, Integer, :_reduce_13, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_16, Integer, Integer, :_reduce_17, Integer, Integer, :_reduce_18, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_21, Integer, Integer, :_reduce_22, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_24, Integer, Integer, :_reduce_25, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_28, Integer, Integer, :_reduce_29, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_31, Integer, Integer, :_reduce_32, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_35, Integer, Integer, :_reduce_36, Integer, Integer, :_reduce_37, Integer, Integer, :_reduce_38, Integer, Integer, :_reduce_39, Integer, Integer, :_reduce_40, Integer, Integer, :_reduce_41, Integer, Integer, :_reduce_42, Integer, Integer, :_reduce_43, Integer, Integer, :_reduce_44, Integer, Integer, :_reduce_45, Integer, Integer, :_reduce_46, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_48, Integer, Integer, :_reduce_49, Integer, Integer, :_reduce_50, Integer, Integer, :_reduce_51, Integer, Integer, :_reduce_52, Integer, Integer, :_reduce_53, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_56, Integer, Integer, :_reduce_57, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none, Integer, Integer, :_reduce_none], Hash[:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO | :error | false, Integer], Integer, Integer, true]
+      Racc_token_to_s_table: [String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String]
+      Racc_debug_parser: false
+      UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN: Regexp
+      UNICODE_CHARACTER_PATTERN: Regexp
+      include Comparable
+      @yydebug: bool
+      @scanner: untyped
+
+      def _reduce_none: (untyped val, untyped _values, untyped result) -> untyped
+      def self.parse: (String string, ?debug: bool) -> untyped
+      def initialize: (?debug: bool) -> void
+      def parse: (String string) -> untyped
+      def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO | false, false])
+    end
+  end
+end
