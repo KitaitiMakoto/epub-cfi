@@ -19,6 +19,7 @@ class EPUB::CFI::Parser
   def parse(string)
     if string.start_with? 'epubcfi('
       string = string['epubcfi('.length .. -2]
+      # @type var string: String
     end
     @scanner = StringScanner.new(string, true)
     do_parse

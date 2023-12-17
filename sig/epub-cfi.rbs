@@ -10,7 +10,7 @@ module EPUB
     SPECIAL_CHARS: String
     RE_ESCAPED_SPECIAL_CHARS: String
 
-    def self.escape: (String? string) -> String
+    def self.escape: (String string) -> String
     def self.unescape: (String string) -> String
     def parse: (untyped string) -> untyped
     def self.parse: (untyped string) -> untyped
@@ -41,7 +41,7 @@ module EPUB
       def <=>: (untyped other) -> Integer?
     end
 
-    class Range < Range[untyped]
+    class Range < ::Range[untyped]
       @string_cache: String
 
       attr_accessor parent_path: Location
@@ -112,7 +112,6 @@ module EPUB
       Racc_token_to_s_table: [String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String]
       Racc_debug_parser: false
       UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN: Regexp
-      UNICODE_CHARACTER_PATTERN: Regexp
       include Comparable
       @yydebug: bool
       @scanner: untyped
@@ -123,5 +122,11 @@ module EPUB
       def parse: (String string) -> untyped
       def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO | false, false])
     end
+  end
+end
+
+module Racc
+  class Parser
+    private def do_parse: () -> void
   end
 end
