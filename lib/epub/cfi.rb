@@ -279,7 +279,7 @@ module EPUB
       def initialize(temporal=nil, x=nil, y=nil, assertion=nil)
         raise RangeError, "dimension must be in 0..100 but passed #{x}" unless (0.0..100.0).cover?(x) if x
         raise RangeError, "dimension must be in 0..100 but passed #{y}" unless (0.0..100.0).cover?(y) if y
-        warn "Assertion is passed to #{__class__} but cannot know how to handle with it: #{assertion}" if assertion
+        warn "Assertion is passed to #{self.class} but cannot know how to handle with it: #{assertion}" if assertion
         @temporal, @x, @y, @assertion = temporal, x, y, assertion
         @string_cache = nil
       end
