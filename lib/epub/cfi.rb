@@ -45,6 +45,7 @@ module EPUB
         def resolve_path(parent_path, subpath)
           paths = parent_path.collect(&:dup)
           return paths unless subpath
+          # @type var subpath: NonEmptyArray[Path]
 
           subpath = subpath.collect(&:dup)
           offset = subpath.last.offset
@@ -221,7 +222,7 @@ module EPUB
       end
 
       def to_s
-        return @string_cache if @string_cache
+        return @string_cache if @string_cache # @type ivar @string_cache: String
         string_cache = '['
         string_cache << CFI.escape(id) if id
         parameters.each_pair do |key, values|
@@ -242,7 +243,7 @@ module EPUB
       end
 
       def to_s
-        return @string_cache if @string_cache
+        return @string_cache if @string_cache # @type ivar @string_cache: String
         string_cache = '['
         string_cache << CFI.escape(preceded) if preceded
         string_cache << ',' << CFI.escape(followed) if followed
@@ -285,7 +286,7 @@ module EPUB
       end
 
       def to_s
-        return @string_cache if @string_cache
+        return @string_cache if @string_cache # @type ivar @string_cache: String
         string_cache = ''
         string_cache << "~#{temporal}" if temporal
         string_cache << "@#{x}:#{y}" if x or y

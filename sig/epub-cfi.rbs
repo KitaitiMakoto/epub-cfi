@@ -2,8 +2,7 @@
 
 # Classes
 module EPUB
-  private
-  def self.CFI: (untyped string) -> untyped
+  def self.CFI: (String | CFI::Location | CFI::Range) -> (CFI::Location | CFI::Range)
 
   module CFI
     VERSION: String
@@ -12,42 +11,41 @@ module EPUB
 
     def self.escape: (String string) -> String
     def self.unescape: (String string) -> String
-    def parse: (untyped string) -> untyped
-    def self.parse: (untyped string) -> untyped
+    def self.parse: (String) -> (Location | Range)
 
     class Location
       include Comparable
 
-      attr_reader paths: Array[untyped]
-      def self.from_parent_and_subpath: (untyped parent_path, untyped subpath) -> Location
-      def self.resolve_path: (untyped parent_path, untyped subpath) -> untyped
+      attr_reader paths: NonEmptyArray[Path]
+      def self.from_parent_and_subpath: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> Location
+      def self.resolve_path: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> Array[Path]
       def initialize: (?Array[untyped] paths) -> void
-      def initialize_copy: (untyped original) -> untyped
-      def <=>: (untyped other) -> Integer?
+      def initialize_copy: (self original) -> void
+      def <=>: (Location other) -> Integer?
       def path_string: -> String
       def to_s: -> String
       def inspect: -> String
-      def join: (*untyped other_paths) -> Location
+      def join: (*Path other_paths) -> Location
     end
 
     class Path
       @string_cache: String
 
       attr_reader steps: Array[Path | Step]
-      attr_reader offset: nil
+      attr_reader offset: (CharacterOffset | TemporalSpatialOffset)?
       def initialize: (?Array[Path | Step] steps, ?nil offset) -> void
-      def initialize_copy: (untyped original) -> nil
+      def initialize_copy: (self original) -> void
       def to_s: -> String
       def <=>: (untyped other) -> Integer?
     end
 
-    class Range < ::Range[untyped]
+    class Range < ::Range[Location]
       @string_cache: String
 
       attr_accessor parent_path: Location
-      attr_accessor start_subpath: untyped
-      attr_accessor end_subpath: untyped
-      def self.from_parent_and_start_and_end: (untyped parent_path, untyped start_subpath, untyped end_subpath) -> Range
+      attr_accessor start_subpath: String
+      attr_accessor end_subpath: String
+      def self.from_parent_and_start_and_end: (NonEmptyArray[Path] parent_path, NonEmptyArray[Path] start_subpath, NonEmptyArray[Path] end_subpath) -> Range
       def to_s: -> String
     end
 
@@ -58,7 +56,7 @@ module EPUB
       attr_reader assertion: (IDAssertion | String)?
       alias step value
       def initialize: (Integer value, ?(IDAssertion | String)? assertion) -> void
-      def initialize_copy: (untyped original) -> nil
+      def initialize_copy: (self original) -> void
       def to_s: -> String
       def <=>: (Step other) -> Integer?
       def element?: -> bool
@@ -71,7 +69,7 @@ module EPUB
       attr_reader id: String
       attr_reader parameters: Hash[String, [String]]
       def initialize: (String id, ?Hash[String, [String]] parameters) -> void
-      def to_s: -> String?
+      def to_s: -> String
     end
 
     class TextLocationAssertion
@@ -81,7 +79,7 @@ module EPUB
       attr_reader followed: String?
       attr_reader parameters: Hash[String, [String]]
       def initialize: (?String? preceded, ?String? followed, ?Hash[String, [String]] parameters) -> void
-      def to_s: -> String?
+      def to_s: -> String
     end
 
     class CharacterOffset
@@ -103,7 +101,7 @@ module EPUB
       attr_reader y: (Float | Integer)?
       attr_reader assertion: nil
       def initialize: (?(Float | Integer)? temporal, ?(Float | Integer)? x, ?(Float | Integer)? y, ?nil assertion) -> void
-      def to_s: -> String?
+      def to_s: -> String
       def <=>: (TemporalSpatialOffset other) -> Integer?
     end
 
@@ -114,19 +112,30 @@ module EPUB
       UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN: Regexp
       include Comparable
       @yydebug: bool
-      @scanner: untyped
+      @scanner: StringScanner
 
       def _reduce_none: (untyped val, untyped _values, untyped result) -> untyped
-      def self.parse: (String string, ?debug: bool) -> untyped
+      def self.parse: (String string, ?debug: bool) -> (Location | Range)
       def initialize: (?debug: bool) -> void
-      def parse: (String string) -> untyped
-      def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO | false, false])
+      def parse: (String string) -> (Location | Range)
+      def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO, String] | [bool, bool])
     end
   end
 end
 
 module Racc
   class Parser
-    private def do_parse: () -> void
+    private def do_parse: () -> untyped
   end
+end
+
+# Just for type checking
+class NonEmptyArray[T] < Array[T]
+  def last: -> T
+  def shift: -> T
+  def collect: { (T) -> untyped } -> NonEmptyArray[untyped]
+end
+
+class MatchedStringScanner < StringScanner
+  def []: (Integer) -> String
 end
