@@ -1,7 +1,7 @@
 before_script:
   - ruby -v
   - which ruby
-  - gem install --no-document racc rake rubygems-tasks yard test-unit test-unit-notify simplecov
+  - gem install --no-document racc rake rubygems-tasks yard test-unit test-unit-notify simplecov steep
 
 test:2.6:
   image: ruby:2.6
@@ -26,4 +26,4 @@ test:3.1:
 test:3.2:
   image: ruby:3.2
   script:
-    rake test
+    rake test typecheck
