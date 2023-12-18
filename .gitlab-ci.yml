@@ -3,16 +3,6 @@ before_script:
   - which ruby
   - gem install --no-document racc rake rubygems-tasks yard test-unit test-unit-notify simplecov steep
 
-test:2.6:
-  image: ruby:2.6
-  script:
-    rake test
-
-test:2.7:
-  image: ruby:2.7
-  script:
-    rake test
-
 test:3.0:
   image: ruby:3.0
   script:
