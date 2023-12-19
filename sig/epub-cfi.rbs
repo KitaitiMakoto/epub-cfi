@@ -6,7 +6,7 @@ module EPUB
 
   module CFI
     VERSION: String
-    SPECIAL_CHARS: String
+    SPECIAL_CHARS: "^[](),;="
     RE_ESCAPED_SPECIAL_CHARS: String
 
     def self.escape: (String string) -> String
@@ -18,10 +18,10 @@ module EPUB
 
       attr_reader paths: NonEmptyArray[Path]
       def self.from_parent_and_subpath: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> Location
-      def self.resolve_path: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> Array[Path]
-      def initialize: (?Array[untyped] paths) -> void
+      def self.resolve_path: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> NonEmptyArray[Path]
+      def initialize: (?NonEmptyArray[Path] paths) -> void
       def initialize_copy: (self original) -> void
-      def <=>: (Location other) -> Integer?
+      def <=>: (self other) -> Integer?
       def path_string: -> String
       def to_s: -> String
       def inspect: -> String
@@ -36,7 +36,7 @@ module EPUB
       def initialize: (?Array[Path | Step] steps, ?nil offset) -> void
       def initialize_copy: (self original) -> void
       def to_s: -> String
-      def <=>: (untyped other) -> Integer?
+      def <=>: (self other) -> Integer?
     end
 
     class Range < ::Range[Location]
@@ -58,7 +58,7 @@ module EPUB
       def initialize: (Integer value, ?(IDAssertion | String)? assertion) -> void
       def initialize_copy: (self original) -> void
       def to_s: -> String
-      def <=>: (Step other) -> Integer?
+      def <=>: (self other) -> Integer?
       def element?: -> bool
       def character_data?: -> bool
     end
@@ -90,7 +90,7 @@ module EPUB
       alias offset value
       def initialize: (Integer value, ?TextLocationAssertion? assertion) -> void
       def to_s: -> String
-      def <=>: (CharacterOffset other) -> Integer?
+      def <=>: (self other) -> Integer?
     end
 
     class TemporalSpatialOffset
@@ -102,7 +102,7 @@ module EPUB
       attr_reader assertion: nil
       def initialize: (?(Float | Integer)? temporal, ?(Float | Integer)? x, ?(Float | Integer)? y, ?nil assertion) -> void
       def to_s: -> String
-      def <=>: (TemporalSpatialOffset other) -> Integer?
+      def <=>: (self other) -> Integer?
     end
 
     class Parser < Racc::Parser
@@ -110,13 +110,16 @@ module EPUB
       Racc_token_to_s_table: [String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String]
       Racc_debug_parser: false
       UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK_PATTERN: Regexp
+      FRAGMENT_PREFIX: "epubcfi("
+      FRAGMENT_PREFIX_LENGTH: 8
+      FRAGMENT_SUFFIX_LENGTH: 1
       include Comparable
-      @yydebug: bool
+      @yydebug: boolish
       @scanner: StringScanner
 
       def _reduce_none: (untyped val, untyped _values, untyped result) -> untyped
-      def self.parse: (String string, ?debug: bool) -> (Location | Range)
-      def initialize: (?debug: bool) -> void
+      def self.parse: (String string, ?debug: boolish) -> (Location | Range)
+      def initialize: (?debug: boolish) -> void
       def parse: (String string) -> (Location | Range)
       def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO, String] | [bool, bool])
     end
