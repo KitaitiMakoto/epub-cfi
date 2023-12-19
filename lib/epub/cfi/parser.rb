@@ -111,7 +111,10 @@ end
 # @raise [Racc::ParseError] if given string is invalid
 # @see CFI.parse
 def EPUB::CFI(string)
-  string.kind_of?(EPUB::CFI::Location) || string.kind_of?(EPUB::CFI::Range) ?
-    string :
-    EPUB::CFI.parse(string) # @type var string: String
+  case string
+  when EPUB::CFI::Location, EPUB::CFI::Range
+    string
+  else
+    EPUB::CFI.parse(string)
+  end
 end
