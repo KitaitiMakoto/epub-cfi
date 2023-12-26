@@ -1,6 +1,7 @@
 === 0.1.3 / Unreleased
 
 * Suppress warning on unused variable
+* Include RBS file
 
 === 0.1.2 / 2019-05-19
 
