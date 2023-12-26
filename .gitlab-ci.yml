@@ -18,7 +18,7 @@ test:3.2:
   script:
     rake test typecheck
 
-test:3.2:
+test:3.3:
   image: ruby:3.3
   script:
     rake test typecheck
