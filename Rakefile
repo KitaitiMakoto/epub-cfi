@@ -18,7 +18,6 @@ task :build => "lib/epub/cfi/parser.tab.rb"
 require 'rake/testtask'
 Rake::TestTask.new do |test|
   test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
   test.verbose = true
 end
 task :test => "lib/epub/cfi/parser.tab.rb"
