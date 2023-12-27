@@ -1,3 +1,4 @@
+require "strscan"
 require "epub/cfi/parser.tab"
 
 class EPUB::CFI::Parser
