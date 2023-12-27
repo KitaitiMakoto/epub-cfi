@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'rake'
 
-task :default => "lib/epub/cfi/parser.tab.rb"
+task :default => [:test, :typecheck]
 
 desc "Build EPUB CFI parser"
 file "lib/epub/cfi/parser.tab.rb" => "lib/epub/cfi/parser.y" do |task|
@@ -30,5 +30,3 @@ desc "Check type"
 task typecheck: "lib/epub/cfi/parser.tab.rb" do
   Steep::Drivers::Check.new(stdout: $stdout, stderr: $stderr).run
 end
-
-task default: :test
