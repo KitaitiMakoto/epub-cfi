@@ -32,7 +32,6 @@ class EPUB::CFI::Parser
   def next_token
     return [false, false] if @scanner.eos?
 
-    # @type ivar @scanner: MatchedStringScanner
     case
     when @scanner.scan(/[1-9]/)
       [:DIGIT_NON_ZERO, @scanner[0]]

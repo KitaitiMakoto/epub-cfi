@@ -114,8 +114,6 @@ module EPUB
       FRAGMENT_PREFIX_LENGTH: 8
       FRAGMENT_SUFFIX_LENGTH: 1
       include Comparable
-      @yydebug: boolish
-      @scanner: StringScanner
 
       def _reduce_none: (untyped val, untyped _values, untyped result) -> untyped
       def self.parse: (String string, ?debug: boolish) -> (Location | Range)
@@ -137,8 +135,4 @@ class NonEmptyArray[T] < Array[T]
   def last: -> T
   def shift: -> T
   def collect: { (T) -> untyped } -> NonEmptyArray[untyped]
-end
-
-class MatchedStringScanner < StringScanner
-  def []: (Integer) -> String
 end
