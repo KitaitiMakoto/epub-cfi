@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.version       = EPUB::CFI::VERSION
   gem.summary       = %q{EPUB CFI parser and builder}
   gem.description   = %q{Parser and builder implementation for EPUB CFI defined at http://www.idpf.org/epub/linking/cfi/}
-  gem.license       = "LGPL"
+  gem.license       = "LGPL-3.0-or-later"
   gem.authors       = ["KITAITI Makoto"]
   gem.email         = "KitaitiMakoto@gmail.com"
   gem.homepage      = "https://gitlab.com/KitaitiMakoto/epub-cfi"
