@@ -45,7 +45,6 @@ module EPUB
         def resolve_path(parent_path, subpath)
           paths = parent_path.collect(&:dup)
           return paths unless subpath
-          # @type var subpath: NonEmptyArray[Path]
 
           subpath = subpath.collect(&:dup)
           offset = subpath.last.offset

@@ -17,8 +17,8 @@ module EPUB
       include Comparable
 
       attr_reader paths: NonEmptyArray[Path]
-      def self.from_parent_and_subpath: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> Location
-      def self.resolve_path: (NonEmptyArray[Path] parent_path, (Array[Path] | nil) subpath) -> NonEmptyArray[Path]
+      def self.from_parent_and_subpath: (NonEmptyArray[Path] parent_path, (NonEmptyArray[Path] | nil) subpath) -> Location
+      def self.resolve_path: (NonEmptyArray[Path] parent_path, (NonEmptyArray[Path] | nil) subpath) -> NonEmptyArray[Path]
       def initialize: (?NonEmptyArray[Path] paths) -> void
       def initialize_copy: (self original) -> void
       def <=>: (self other) -> Integer?
