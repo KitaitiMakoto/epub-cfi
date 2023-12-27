@@ -1,0 +1,39 @@
+class TestCFI < Test::Unit::TestCase
+  private
+
+  def epubcfi: (String string) -> (EPUB::CFI::Location | EPUB::CFI::Range)
+  def assert_equal_node: (untyped expected, untyped actual, ?String message) -> void
+
+  class TestLocation < TestCFI
+  end
+
+  class TestPath < TestCFI
+  end
+
+  class TestRange < TestCFI
+  end
+
+  class TestStep < TestCFI
+  end
+
+  class TestIDAssertion < TestCFI
+  end
+
+  class TestTextLocationAssertion < TestCFI
+  end
+
+  class TestCharacterOffset < TestCFI
+  end
+
+  class TestSpatialOffset < TestCFI
+  end
+
+  class TestTemporalOffset < TestCFI
+  end
+
+  class TestTemporalSpatialOffset < TestCFI
+  end
+end
+
+class TestParserCFI < Test::Unit::TestCase
+end

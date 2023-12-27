@@ -21,12 +21,14 @@ class TestCFI < Test::Unit::TestCase
 
     def test_join
       location = EPUB::CFI::Parser.parse('epubcfi(/6/14[chap05ref])')
+      # @type var location: EPUB::CFI::Location
       other_path = EPUB::CFI::Path.new([EPUB::CFI::Path.new([
         EPUB::CFI::Step.new(4, EPUB::CFI::IDAssertion.new('body01')),
         EPUB::CFI::Step.new(10),
         EPUB::CFI::Step.new(2),
         EPUB::CFI::Step.new(1)
       ])])
+      # @type var other_path: Array<EPUB::CFI::Step>
       joined = location.join([other_path])
 
       assert_equal 'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1)', joined.to_s
@@ -81,6 +83,7 @@ class TestCFI < Test::Unit::TestCase
       first = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/2/1:1')
       last = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05]/3:4')
       range = epubcfi('/6/4[chap01ref]!/4[body01]/10[para05],/2/1:1,/3:4')
+      # @type var range: EPUB::CFI::Range
       assert_equal 0, first <=> range.first
       assert_equal 0, last <=> range.last
 

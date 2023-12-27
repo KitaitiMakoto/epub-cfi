@@ -1,0 +1,7 @@
+module SimpleCov
+  def self.start: { [self: Configuration] -> void } -> void
+
+  module Configuration
+    def add_filter: (string) -> void
+  end
+end

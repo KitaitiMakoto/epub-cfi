@@ -1,0 +1,31 @@
+module Test
+  module Unit
+    class TestCase
+      include Assertions
+      extend Data::ClassMethods
+
+      def self.data: (untyped) -> untyped
+    end
+
+    module Assertions
+      def assert_equal: (untyped, untyped) -> void
+      def assert_not_same: (untyped, untyped) -> void
+      def assert_nil: (untyped) -> void
+      def assert_true: (untyped) -> void
+      def assert_block: (string?) { -> void } -> void
+      def assert_raise: (singleton(Exception)?) { -> void } -> void
+      def assert_nothing_raised: { -> void } -> void
+      def build_message: (string, string?, *string) -> String
+
+      class AssertionMessage
+        def self.delayed_diff: (string? from, string? to) -> String
+      end
+    end
+
+    module Data
+      module ClassMethods
+        def data: (untyped) -> untyped
+      end
+    end
+  end
+end
