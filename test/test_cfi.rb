@@ -28,8 +28,7 @@ class TestCFI < Test::Unit::TestCase
         EPUB::CFI::Step.new(2),
         EPUB::CFI::Step.new(1)
       ])])
-      # @type var other_path: Array<EPUB::CFI::Step>
-      joined = location.join([other_path])
+      joined = location.join(other_path)
 
       assert_equal 'epubcfi(/6/14[chap05ref]!/4[body01]/10/2/1)', joined.to_s
     end
