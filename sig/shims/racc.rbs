@@ -1,0 +1,8 @@
+module Racc
+  class Parser
+    private def do_parse: () -> untyped
+  end
+
+  class ParseError < StandardError
+  end
+end

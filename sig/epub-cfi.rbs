@@ -124,12 +124,6 @@ module EPUB
   end
 end
 
-module Racc
-  class Parser
-    private def do_parse: () -> untyped
-  end
-end
-
 # Just for type checking
 class NonEmptyArray[T] < Array[T]
   def last: -> T
