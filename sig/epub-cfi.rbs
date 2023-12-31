@@ -16,10 +16,10 @@ module EPUB
     class Location
       include Comparable
 
-      attr_reader paths: NonEmptyArray[Path]
-      def self.from_parent_and_subpath: (NonEmptyArray[Path] parent_path, (NonEmptyArray[Path]?) subpath) -> Location
-      def self.resolve_path: (NonEmptyArray[Path] parent_path, (NonEmptyArray[Path]?) subpath) -> NonEmptyArray[Path]
-      def initialize: (?NonEmptyArray[Path] paths) -> void
+      attr_reader paths: Array[Path]
+      def self.from_parent_and_subpath: (Array[Path] parent_path, (Array[Path]?) subpath) -> Location
+      def self.resolve_path: (Array[Path] parent_path, (Array[Path]?) subpath) -> Array[Path]
+      def initialize: (?Array[Path] paths) -> void
       def initialize_copy: (self original) -> void
       def <=>: (self other) -> Integer?
       def path_string: -> String
@@ -45,7 +45,7 @@ module EPUB
       attr_accessor parent_path: Location
       attr_accessor start_subpath: String
       attr_accessor end_subpath: String
-      def self.from_parent_and_start_and_end: (NonEmptyArray[Path] parent_path, NonEmptyArray[Path] start_subpath, NonEmptyArray[Path] end_subpath) -> Range
+      def self.from_parent_and_start_and_end: (Array[Path] parent_path, Array[Path] start_subpath, Array[Path] end_subpath) -> Range
       def to_s: -> String
     end
 
@@ -122,11 +122,4 @@ module EPUB
       def next_token: -> ([:ATMARK | :CIRCUMFLEX | :CLOSING_PARENTHESIS | :CLOSING_SQUARE_BRACKET | :COLON | :COMMA | :DIGIT_NON_ZERO | :DOT | :EQUAL | :EXCLAMATION_MARK | :OPENING_PARENTHESIS | :OPENING_SQUARE_BRACKET | :SEMICOLON | :SOLIDUS | :SPACE | :TILDE | :UNICODE_CHARACTER_EXCLUDING_SPECIAL_CHARS_AND_SPACE_AND_DOT_AND_COLON_AND_TILDE_AND_ATMARK_AND_SOLIDUS_AND_EXCLAMATION_MARK | :ZERO, String] | [bool, bool])
     end
   end
-end
-
-# Just for type checking
-class NonEmptyArray[T] < Array[T]
-  def last: -> T
-  def shift: -> T
-  def collect: { (T) -> untyped } -> NonEmptyArray[untyped]
 end
